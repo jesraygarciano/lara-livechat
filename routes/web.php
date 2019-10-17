@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'ChatkitController@index');
+Route::post('/', 'ChatkitController@join');
+Route::get('chat', 'ChatkitController@chat')->name('chat');
+Route::post('logout', 'ChatkitController@logout')->name('logout');
