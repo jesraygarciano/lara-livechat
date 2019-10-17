@@ -8,7 +8,7 @@ class ChatkitController extends Controller
     public function __construct()
     {
         $this->chatkit = app('ChatKit');
-        $this->roomId = env('CHATKIT_GENERAL_ROOM_ID');
+        $this->roomId = env('CHATKIT_GENERAL_ROOM_ID','52feb47f-6805-4247-bce5-a93316d46925');
     }
     /**
      * Show the welcome page.
@@ -32,7 +32,11 @@ class ChatkitController extends Controller
      */
     public function join(Request $request)
     {
-        $chatkit_id = strtolower(str_random(5));
+        $chatkit_id = strtolower(uniqid());
+        // $chatkit_id = strtolower("Hello WORLD");
+
+        // $userId = $request->session()->get('chatkit_id')[0];
+
         // Create User account on ChatKit
         $this->chatkit->createUser([
             'id' =>  $chatkit_id,

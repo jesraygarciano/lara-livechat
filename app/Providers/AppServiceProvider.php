@@ -1,6 +1,8 @@
 <?php
 namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,5 +28,6 @@ $this->app->bind('ChatKit', function() {
     public function boot()
     {
         //
+    Schema::defaultStringLength(191);        
     }
 }
