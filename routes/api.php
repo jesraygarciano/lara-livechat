@@ -13,9 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('authenticate','ChatkitController@authenticate');
-Route::get('users', 'ChatkitController@getUsers');
-Route::post('message','ChatkitController@sendMessage');
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+//  });
+
+Route::post('/register', 'UserController@register')->middleware('guest');
+Route::post('/login', 'UserController@login')->middleware('guest');
+Route::post('/update/token', 'UserController@updateToken');
+
+// Route::post('authenticate','ChatkitController@authenticate');
+// Route::get('users', 'ChatkitController@getUsers');
+// Route::post('message','ChatkitController@sendMessage');
