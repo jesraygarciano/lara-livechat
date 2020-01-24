@@ -2,9 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     //
+    public function register(Request $request) {
+        $username = $request->get('username');
+        $password = $request->get('password');
+    
+        if($this->checkIfUserExist($username)){
+            return response()->json([
+                'message' => 'User already exist'
+            ], 500);
+        }else{
+            $password = bcrypt($password);
+            User::create([
+                'username' => $username,
+                'password' => $password
+            ]);
+            return response()->json(true);
+        }
+    }
+
+    private function checkIfUserExist($username){
+        $user = User::where('username', $username)->first();
+
+        if($user){
+            return $user;
+        }else{
+            return false;
+        }
+
+    }
 }
