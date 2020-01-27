@@ -35,6 +35,34 @@ class UserController extends Controller
         }else{
             return false;
         }
-
     }
+
+    public function login(Request $request){
+        $username = $request->get('username');
+        $password = $request->get('password');
+
+        $user = $this->checkIfUserExist($username);
+
+        if($user){
+            $confirmPassword = Hash::check($password, $user->password);
+            return response()->json([
+                'status' => $conformPassword,
+                'token' => $user->authToken
+            ]);
+        }else{
+            return response()->json([
+                'message' => "Invalid credentials"
+            ], 500);
+        }
+    }
+
+    public function updateToken(Request $request) {
+        $username = $request->get('uid');
+        $token = $request->get('token');
+    
+        User::where('username', $username)->update([
+            'authToken' => $token
+        ]);
+    }
+
 }
